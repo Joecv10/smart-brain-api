@@ -3,10 +3,10 @@ const { ClarifaiStub, grpc } = require("clarifai-nodejs-grpc");
 const handleAPICall = (req, res) => {
   const { imgURL } = req.body;
 
-  const PAT = "";
+  const PAT = process.env.API_KEY;
   // Specify the correct user_id/app_id pairings
   // Since you're making inferences outside your app's scope
-  const USER_ID = "";
+  const USER_ID = process.env.API_USER;
   const APP_ID = "test";
   // Change these to whatever model and image URL you want to use
   const MODEL_ID = "face-detection";

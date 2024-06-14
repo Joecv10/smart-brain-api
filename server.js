@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const cors = require("cors");
 const knex = require("knex");
+const dotenv = require("dotenv");
 
 const signin = require("./controllers/signin");
 const register = require("./controllers/register");
@@ -14,14 +15,16 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+dotenv.config();
+
 const dB = knex({
   client: "pg",
   connection: {
-    host: "127.0.0.1", //localhost
-    user: "postgres", //add your user name for the database here
-    port: 5432, // add your port number here
-    password: "", //add your correct password in here
-    database: "smart_brain", //add your database name you created here
+    host: process.env.DB_HOST, //localhost
+    user: process.env.DB_USER, //add your user name for the database here
+    port: process.env.DB_PORT, // add your port number here
+    password: process.env.DB_PASSWORD, //add your correct password in here
+    database: process.env.DB_NAME, //add your database name you created here
   },
 });
 
@@ -52,6 +55,6 @@ app.post("/imageURL", (req, res) => {
   image.handleAPICall(req, res);
 });
 
-app.listen(3001, () => {
-  console.log("App is running on port 3001");
+app.listen(process.env.PORT, () => {
+  console.log(`App is running on port ${process.env.PORT}`);
 });
